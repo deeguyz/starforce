@@ -1,0 +1,66 @@
+input {
+  width: 50%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+input[type="number"] {
+  -moz-appearance:textfield;
+  width: 20em;
+  height:2em;
+}
+
+input[type="checkbox"] {
+  position:left;
+  display:inline-block;
+  width:auto;
+  text-align:top;
+}
+
+label.checkbox-label {
+  position: relative;
+  vertical-align: middle;
+  left:0.5em;
+}
+
+input[type="submit"] {
+  width:20em;
+  height:2em;
+}
+
+input, label {
+    display:block;
+}
+
+.master {
+  display: flex;
+}
+
+.parentForm{
+  margin-top: 1em;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1em;
+}
+
+td, th {
+  border: 0.13em solid #3113a5;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+div.parentForm{
+  margin-right: 10em;
+}
+
+
