@@ -58,18 +58,26 @@ class LevelForm extends Component {
     console.log(this.state.isSup);
     if(select === 'Armor') {
       console.log('poop');
-    }else if( select === 'Gloves') {
-      console.log('poop2');
-    }else if( select === 'Shoes') {
-      console.log('poop3')
-    }
-    fetch('/api/csvdata?itemLevels=' + itemLevel + '&stars=' + star + '&isSup=' + isSup 
+      fetch('/api/armor?itemLevels=' + itemLevel + '&stars=' + star + '&isSup=' + isSup 
       + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + baseAtk)
       .then(res => res.json())
       .then((res) =>{
         console.log(JSON.stringify(res));
         this.setState({output: res});
-      });   
+      }); 
+    }else if( select === 'Gloves') {
+      console.log('poop2');
+      fetch('/api/gloves?itemLevels=' + itemLevel + '&stars=' + star  
+      + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + baseAtk)
+      .then(res => res.json())
+      .then((res) =>{
+        console.log(JSON.stringify(res));
+        this.setState({output: res});
+      }); 
+    }else if( select === 'Shoes') {
+      console.log('poop3')
+    }
+      
   }
 
 

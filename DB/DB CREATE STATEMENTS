@@ -1,0 +1,78 @@
+CREATE TABLE `Armor` (
+    `id`  INT unsigned NOT NULL AUTO_INCREMENT,
+    `stars` INT unsigned NOT NULL,
+    `minLv` INT unsigned NOT NULL,
+    `maxLv` INT unsigned NOT NULL,
+    `primary` INT unsigned,
+    `secondary` INT unsigned,
+    `hp` INT unsigned,
+    `mp` INT unsigned,
+    `def`DOUBLE unsigned,
+    `att` INT unsigned,
+    `isSuperior` BOOLEAN,
+    `extraAtt` INT unsigned,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `Shoes` (
+    `id`  INT unsigned NOT NULL AUTO_INCREMENT,
+    `stars` INT unsigned NOT NULL,
+    `minLv` INT unsigned NOT NULL,
+    `maxLv` INT unsigned NOT NULL,
+    `primary` INT unsigned,
+    `secondary` INT unsigned,
+    `hp` INT unsigned,
+    `mp` INT unsigned,
+    `def`DOUBLE unsigned,
+    `att` INT unsigned,
+    `extraAtt` INT unsigned,
+    `jump` INT unsigned NOT NULL,
+    `speed` INT unsigned NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `Gloves` (
+    `id`  INT unsigned NOT NULL AUTO_INCREMENT,
+    `stars` INT unsigned NOT NULL,
+    `minLv` INT unsigned NOT NULL,
+    `maxLv` INT unsigned NOT NULL,
+    `extra att` INT unsigned,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `Weapons` (
+    `id`  INT unsigned NOT NULL AUTO_INCREMENT,
+    `stars` INT unsigned NOT NULL,
+    `minLv` INT unsigned NOT NULL,
+    `maxLv` INT unsigned NOT NULL,
+    `primary` INT unsigned,
+    `secondary` INT unsigned,
+    `hp` INT unsigned,
+    `mp` INT unsigned,
+    `def`DOUBLE unsigned,
+    `att` INT unsigned,
+    `att %` DOUBLE unsigned,
+    `extra att` INT unsigned,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `ArmorExtraAtt` (
+    `id`  INT unsigned NOT NULL AUTO_INCREMENT,
+    `stars` INT unsigned NOT NULL,
+    `minLv` INT unsigned NOT NULL,
+    `maxLv` INT unsigned NOT NULL,
+    `att` INT unsigned,
+    PRIMARY KEY(`id`)
+);
+
+LOAD DATA LOCAL INFILE 'Armor.csv'
+    INTO TABLE Armor
+FIELDS TERMINATED BY ','
+IGNORE 1 LINES
+(stars, minLv, maxLv, `primary`, secondary, hp, mp, def, att, isSuperior, extraAtt);
+
+LOAD DATA LOCAL INFILE 'Armor.csv'
+    INTO TABLE Armor
+FIELDS TERMINATED BY ','
+IGNORE 1 LINES
+(stars, minLv, maxLv, `primary`, secondary, hp, mp, def, att, att%, extraAtt);
