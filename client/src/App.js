@@ -76,6 +76,13 @@ class LevelForm extends Component {
       }); 
     }else if( select === 'Shoes') {
       console.log('poop3')
+      fetch('/api/shoes?itemLevels=' + itemLevel + '&stars=' + star  
+      + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + baseAtk)
+      .then(res => res.json())
+      .then((res) =>{
+        console.log(JSON.stringify(res));
+        this.setState({output: res});
+      }); 
     }
       
   }
@@ -138,6 +145,14 @@ class LevelForm extends Component {
                     <tr>
                       <td>M(ATT)</td> 
                       <td>{item.att}</td>
+                    </tr>
+                    <tr>
+                      <td>Jump</td>
+                      <td>{item.jump}</td>
+                    </tr>
+                    <tr>
+                      <td>Speed</td>
+                      <td>{item.speed}</td>
                     </tr>
                   </tbody>
                 )

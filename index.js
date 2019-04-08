@@ -85,18 +85,25 @@ app.get('/api/gloves', function(req,response) {
 	})
 });
 
+app.get('/api/shoes', function(req,response) {
+	pool.connect(function (err, client, done) {
+		if(err) {
+			console.log('err=', err);
+		}
+		const sql = 'SELECT $1 + SUM(Shoes.primary) as primary, $2 + SUM(Shoes.secondary) as secondary, $3 + SUM(Shoes.att + Shoes.extraAtt) as ATT, SUM(Shoes.jump) as Jump, SUM(Shoes.speed) as Speed FROM Shoes WHERE stars<=$4 AND $5 BETWEEN minLv AND maxLv';
+		client.query(sql,[ req.query.basePrimary, req.query.baseSecondary, req.query.baseAtk, req.query.stars, req.query.itemLevels], function (err, result) {
+			done();
+			if(err) {
+				response.status(400).send(err);
+			}
+			response.send(result.rows);
+		})
+	})
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-// if (process.env.NODE_ENV === "production") {
-//   // Express will serve up production assets
-//   app.use(express.static("build"));
-
-//   // Express will serve up the front-end index.html file if it doesn't recognize the route
-//   app.get("*", (req, res) =>
-//     res.sendFile(path.resolve("build", "index.html"))
-//   );
-// }
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
