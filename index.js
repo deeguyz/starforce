@@ -58,8 +58,8 @@ app.get('/api/armor', function(req,response) {
 		if(err) {
 			console.log('err=', err);
 		}
-		const sql = 'SELECT $1 + SUM(Armor.primary) as primary, $2 + SUM(Armor.secondary) as secondary, $3 + SUM(Armor.att + Armor.extraAtt) as ATT FROM Armor WHERE stars<=$4 AND isSuperior=$5 AND $6 BETWEEN minLv AND maxLv';
-		client.query(sql,[ req.query.basePrimary, req.query.baseSecondary, req.query.baseAtk, req.query.stars, req.query.isSup, req.query.itemLevels], function (err, result) {
+		const sql = 'SELECT $1 + SUM(Armor.primary) as primary, $2 + SUM(Armor.secondary) as secondary, $3 + SUM(Armor.att + Armor.extraAtt) as ATT FROM Armor WHERE stars<=$4 AND isSuperior=false AND $5 BETWEEN minLv AND maxLv';
+		client.query(sql,[ req.query.basePrimary, req.query.baseSecondary, req.query.baseAtk, req.query.stars, req.query.itemLevels], function (err, result) {
 			done();
 			if(err) {
 				response.status(400).send(err);

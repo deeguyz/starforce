@@ -17,8 +17,7 @@ class LevelForm extends Component {
     primaryOut:'',
     secondaryOut:'',
     attOut:'',
-    select:'Armor',
-    isSup: false };
+    select:'Armor'};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,21 +43,18 @@ class LevelForm extends Component {
   mathStuff() {
     var star = this.state.star;
     var itemLevel = this.state.itemLevel;
-    var isSup = this.state.isSup;
     var baseStatPrimary = this.state.baseStatPrimary;
     var baseStatSecondary = this.state.baseStatSecondary;
     var baseAtk = this.state.baseAtk;
     var select = this.state.select;
     console.log(typeof itemLevel);
     console.log(typeof star);
-    console.log(typeof isSup);
     console.log(baseStatPrimary);
     console.log(baseStatSecondary);
     console.log(this.state.select);
-    console.log(this.state.isSup);
     if(select === 'Armor') {
       console.log('poop');
-      fetch('/api/armor?itemLevels=' + itemLevel + '&stars=' + star + '&isSup=' + isSup 
+      fetch('/api/armor?itemLevels=' + itemLevel + '&stars=' + star  
       + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + baseAtk)
       .then(res => res.json())
       .then((res) =>{
@@ -87,7 +83,6 @@ class LevelForm extends Component {
       
   }
 
-
   render(){
     return(
       <div className="master">
@@ -99,6 +94,7 @@ class LevelForm extends Component {
                 <option name="select" value="Armor">Armor/Accessory</option>
                 <option name="select" value="Gloves">Gloves</option>
                 <option name="select" value="Shoes">Shoes</option>
+                <option name="select" value="Superior">Superior</option>
               </select>
             </div>
             <br />
@@ -114,51 +110,35 @@ class LevelForm extends Component {
               <input name='baseAtk' type="number" placeholder="Base (M)Atk" onChange={this.handleChange}/>
                 <br/>
             </div>  
-            <div className="supBox">
-              <input name='isSup' onClick={event => this.getCheckboxValue(event)} type="checkbox"/>
-              <label className='checkbox-label'>
-                Superior Item
-              </label>  
-            </div>
-            <br />
             <input onClick={this.mathStuff} type="submit" value="Submit"/>
           </form>
         <p>itemLevel: {this.state.itemLevel}</p>
-        <p>isSup?: {this.state.isSup}</p>
         </div>
         
 
         <div className="output">
           <table>
-            
-              {this.state.output.map(function(item,key) {
-                return (
-                  <tbody key = {key}>                   
-                    <tr>
-                      <td>Primary Stat</td>
-                      <td>{item.primary}</td>
-                    </tr>
-                    <tr>  
-                      <td>Secondary Stat</td>
-                      <td>{item.secondary}</td>
-                    </tr>
-                    <tr>
-                      <td>M(ATT)</td> 
-                      <td>{item.att}</td>
-                    </tr>
-                    <tr>
-                      <td>Jump</td>
-                      <td>{item.jump}</td>
-                    </tr>
-                    <tr>
-                      <td>Speed</td>
-                      <td>{item.speed}</td>
-                    </tr>
-                  </tbody>
-                )
-              })}
-      
-            </table>
+              {
+                this.state.output.map(stat => {
+                  return (
+                    <tbody>
+                    {
+                      Object.entries(stat).map(([key,value]) => {
+                        return (
+                          <React.Fragment>
+                            <tr>
+                              <td>{key}</td>
+                              <td>{value}</td>
+                            </tr>
+                          </React.Fragment>
+                        );
+                      })
+                    }
+                    </tbody>
+                  );
+                })
+              } 
+          </table>
         </div>
 
         <script src="https://unpkg.com/react/umd/react.production.js" crossorigin />
