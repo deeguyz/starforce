@@ -44,7 +44,6 @@ const pool = new pg.Pool(config);
 
 app.get('/api/armor', function(req,response) {
 	console.log(req.query);
-	console.log(req.query.isSup)
 	// const sql = 'SELECT ? + SUM(Armor.primary) as `primary`, ? + SUM(Armor.secondary) as `secondary`, ? + SUM(Armor.att + Armor.extraAtt) as `ATT` FROM Armor WHERE stars<=? AND isSuperior=? AND ? BETWEEN minLv AND maxLv';
 	// connection.query(sql,[ req.query.basePrimary, req.query.baseSecondary, req.query.baseAtk, req.query.stars, req.query.isSup, req.query.itemLevels], function(error, results) {
 	// 	if( error) {
@@ -59,6 +58,22 @@ app.get('/api/armor', function(req,response) {
 			console.log('err=', err);
 		}
 		const sql = 'SELECT $1 + SUM(Armor.primary) as primary, $2 + SUM(Armor.secondary) as secondary, $3 + SUM(Armor.att + Armor.extraAtt) as ATT FROM Armor WHERE stars<=$4 AND isSuperior=false AND $5 BETWEEN minLv AND maxLv';
+		client.query(sql,[ req.query.basePrimary, req.query.baseSecondary, req.query.baseAtk, req.query.stars, req.query.itemLevels], function (err, result) {
+			done();
+			if(err) {
+				response.status(400).send(err);
+			}
+			response.send(result.rows);
+		})
+	})
+});
+
+app.get('/api/superior', function(req,response) {
+	pool.connect(function (err, client, done) {
+		if(err) {
+			console.log('err=', err);
+		}
+		const sql = 'SELECT $1 + SUM(Armor.primary) as primary, $2 + SUM(Armor.secondary) as secondary, $3 + SUM(Armor.att + Armor.extraAtt) as ATT FROM Armor WHERE stars<=$4 AND isSuperior=true AND $5 BETWEEN minLv AND maxLv';
 		client.query(sql,[ req.query.basePrimary, req.query.baseSecondary, req.query.baseAtk, req.query.stars, req.query.itemLevels], function (err, result) {
 			done();
 			if(err) {

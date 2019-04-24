@@ -40,6 +40,10 @@ class LevelForm extends Component {
     event.preventDefault();
   }
 
+  weaponMultiplier() {
+    
+  }
+
   mathStuff() {
     var star = this.state.star;
     var itemLevel = this.state.itemLevel;
@@ -53,7 +57,7 @@ class LevelForm extends Component {
     console.log(baseStatSecondary);
     console.log(this.state.select);
     if(select === 'Armor') {
-      console.log('poop');
+      console.log('Armor');
       fetch('/api/armor?itemLevels=' + itemLevel + '&stars=' + star  
       + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + baseAtk)
       .then(res => res.json())
@@ -62,7 +66,7 @@ class LevelForm extends Component {
         this.setState({output: res});
       }); 
     }else if( select === 'Gloves') {
-      console.log('poop2');
+      console.log('Gloves');
       fetch('/api/gloves?itemLevels=' + itemLevel + '&stars=' + star  
       + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + baseAtk)
       .then(res => res.json())
@@ -71,8 +75,17 @@ class LevelForm extends Component {
         this.setState({output: res});
       }); 
     }else if( select === 'Shoes') {
-      console.log('poop3')
+      console.log('Shoes')
       fetch('/api/shoes?itemLevels=' + itemLevel + '&stars=' + star  
+      + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + baseAtk)
+      .then(res => res.json())
+      .then((res) =>{
+        console.log(JSON.stringify(res));
+        this.setState({output: res});
+      }); 
+    }else if( select === 'Superior') {
+      console.log('Superior')
+      fetch('/api/superior?itemLevels=' + itemLevel + '&stars=' + star  
       + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + baseAtk)
       .then(res => res.json())
       .then((res) =>{
