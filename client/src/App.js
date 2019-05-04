@@ -7,12 +7,12 @@ class LevelForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-    star: '',
+    star: '0',
     table: '',
-    itemLevel: '',
-    baseStatPrimary: '',
-    baseStatSecondary: '',
-    baseAtk: '',
+    itemLevel: '0',
+    baseStatPrimary: '0',
+    baseStatSecondary: '0',
+    baseAtk: '0',
     output: [],
     primaryOut:'',
     secondaryOut:'',
