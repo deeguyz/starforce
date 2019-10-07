@@ -41,7 +41,7 @@ class LevelForm extends Component {
   }
 
   weaponMultiplier() {
-    
+    return 
   }
 
   mathStuff() {
@@ -51,6 +51,7 @@ class LevelForm extends Component {
     var baseStatSecondary = this.state.baseStatSecondary;
     var baseAtk = this.state.baseAtk;
     var select = this.state.select;
+    var temp = baseAtk;
     console.log(typeof itemLevel);
     console.log(typeof star);
     console.log(baseStatPrimary);
@@ -82,7 +83,48 @@ class LevelForm extends Component {
       .then((res) =>{
         console.log(JSON.stringify(res));
         this.setState({output: res});
-      }); 
+      });
+    }else if( select === 'Weapons') {
+      console.log('Weapons2');
+      console.log('baseAtk: ' + baseAtk);
+      console.log(temp);
+      if(star > 15)
+      {
+        console.log("poooooop");
+
+        for(var i = 0; i < 15; i++)
+        {
+          temp = Math.ceil(temp * 1.02);
+          console.log(i);
+          // baseAtk = Math.ceil(baseAtk*1.02);
+          console.log(temp);
+        }
+        // this.setState({baseAtk: temp}, () => {
+        //     console.log(this.state.baseAtk);
+        //   });
+        console.log("iterate for star: " + star);
+        // console.log("baseAtk: " + this.state.baseAtk);
+      }
+      else if(star <=15)
+      {
+        for(var j = 0; j < star; j++)
+        {
+          console.log(j);
+          temp = Math.ceil(temp*1.02);
+          console.log(baseAtk);
+        }
+        console.log("iterate for star: " + star);
+        console.log("baseAtk: " + baseAtk);
+      }
+
+      console.log("temp: " + temp);
+      fetch('/api/weapons?itemLevels=' + itemLevel + '&stars=' + star  
+      + '&basePrimary=' + baseStatPrimary + '&baseSecondary=' + baseStatSecondary + '&baseAtk=' + temp)
+      .then(res => res.json())
+      .then((res) =>{
+        console.log(JSON.stringify(res));
+        this.setState({output: res});
+      });  
     }else if( select === 'Superior') {
       console.log('Superior')
       fetch('/api/superior?itemLevels=' + itemLevel + '&stars=' + star  
@@ -107,6 +149,7 @@ class LevelForm extends Component {
                 <option name="select" value="Armor">Armor/Accessory</option>
                 <option name="select" value="Gloves">Gloves</option>
                 <option name="select" value="Shoes">Shoes</option>
+                <option name="select" value="Weapons">Weapons</option>
                 <option name="select" value="Superior">Superior</option>
               </select>
             </div>

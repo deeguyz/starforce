@@ -116,9 +116,26 @@ app.get('/api/shoes', function(req,response) {
 	})
 });
 
+app.get('/api/weapons', function(req,response) {
+	pool.connect(function (err, client, done) {
+		if(err) {
+			console.log('err=', err);
+		}
+		const sql = 'SELECT $1 + SUM(Weapons.primary) as primary, $2 + SUM(Weapons.secondary) as secondary, $3 + SUM(Weapons.att + Weapons.extraAtt) as ATT FROM Weapons WHERE stars<=$4 AND $5 BETWEEN minLv AND maxLv';
+		client.query(sql,[ req.query.basePrimary, req.query.baseSecondary, req.query.baseAtk, req.query.stars, req.query.itemLevels], function (err, result) {
+			done();
+			if(err) {
+				response.status(400).send(err);
+			}
+			response.send(result.rows);
+		})
+	})
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
